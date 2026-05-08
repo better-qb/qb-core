@@ -644,10 +644,8 @@ end
 -- Util Functions
 
 function QBCore.Player.CreateUserId()
-    local UserId = MySQL.query.await('SELECT MAX(userId) FROM players')
-    if (UserId) then
-        return UserId + 1
-    end
+    local query = MySQL.query.await("SELECT MAX (userId) FROM players")
+    return (query[1]["MAX (userId)"] or 0) + 1
 end
 
 function QBCore.Player.CreateCitizenId()
